@@ -1,0 +1,10 @@
+# --- .gitattributes: prefer Python & ignore generated outputs for language stats ---
+# Ignore HTML map outputs and other generated/binary assets from Linguist language detection
+*.html linguist-detectable=false
+outputs/** linguist-detectable=false
+maps/** linguist-detectable=false
+assets/** linguist-detectable=false
+data/** linguist-detectable=false
+
+# Force Python to be treated as Python (helpful if notebooks/scripts are present)
+*.py linguist-language=Python
