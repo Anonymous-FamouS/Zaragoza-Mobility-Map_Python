@@ -6,15 +6,19 @@ It combines **cycling infrastructure**, **bus routes**, **tram routes**, and spa
 In addition to the multimodal map, the project includes an **emissions analysis module**, where district-level emissions data is processed, aggregated, and visualised through charts and spatial overlays. Together, these modules create a powerful exploratory tool for mobility and sustainability planning in Zaragoza.  
 
 ---
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/7be2d9c3-d508-40be-b989-4d8599e5491f" alt="Screenshot 1" width="33%"/>
-  <img src="https://github.com/user-attachments/assets/ba22856c-fa5f-41ce-a8f1-e3e3fce33a0f" alt="Screenshot 2" width="33%"/>
-  <img src="https://github.com/user-attachments/assets/fdaba80c-bd36-454f-bd96-3a5bf5f873c4" alt="Screenshot 3" width="33%"/>
-</p>
 
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/7be2d9c3-d508-40be-b989-4d8599e5491f" width="100%"></td>
+    <td><img src="https://github.com/user-attachments/assets/ba22856c-fa5f-41ce-a8f1-e3e3fce33a0f" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/fdaba80c-bd36-454f-bd96-3a5bf5f873c4" width="100%"></td>
+    <td><img src="https://github.com/user-attachments/assets/77d6deeb-53ec-4757-bc2b-8df7f604a568" width="100%"></td>
+  </tr>
+</table>
 
-
-
+It can be noted that districts with larger gaps in their walking and cycling grids, as well as fewer transit stops, unsurprisingly produce higher transport emissions.
 
 ## 🔍 Overview
 
