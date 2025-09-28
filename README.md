@@ -12,6 +12,10 @@ In addition to the multimodal map, the project includes an **emissions analysis 
   <img src="https://github.com/user-attachments/assets/fdaba80c-bd36-454f-bd96-3a5bf5f873c4" alt="Screenshot 3" width="33%"/>
 </p>
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7be2d9c3-d508-40be-b989-4d8599e5491f" alt="Screenshot 1" width="33%"/>
+  <img src="https://github.com/user-attachments/assets/ba22856c-fa5f-41ce-a8f1-e3e3fce33a0f" alt="Screenshot 2" width="33%"/>
+</p>
 
 
 
@@ -26,7 +30,11 @@ The repository provides:
   - **Walking and cycling network gap analysis** using OpenStreetMap data (OSMnx).  
   - Toggle controls to enable/disable infrastructure layers.
 
-<img width="1509" height="790" alt="Screenshot 2025-09-27 at 23 29 13" src="https://github.com/user-attachments/assets/7be2d9c3-d508-40be-b989-4d8599e5491f" />
+
+
+https://github.com/user-attachments/assets/d1d73fd3-81ce-4e1e-9c47-0ed39f86cdf1
+
+
 
 - **Emissions Analysis Module**:  
   - District-level aggregation of transport emissions.  
