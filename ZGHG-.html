@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_117cce2f144ab555331ff22f8d61df16 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed;
+                bottom: 50px; left: 50px; width: 350px; height: auto;
+                border: 3px solid #333; z-index: 9999; font-size: 14px;
+                background-color: white; opacity: 0.95; border-radius: 10px;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.3); padding: 15px;">
+
+        <h3 style="margin: 0 0 15px 0; color: #E31A1C; text-align: center;
+                   border-bottom: 3px solid #E31A1C; padding-bottom: 8px;">
+            🏭 Transport GHG Emissions (2023)
+        </h3>
+
+        <div style="margin-bottom: 15px;">
+            <h4 style="margin: 0 0 8px 0; color: #333;">📊 Emission Intensity Legend</h4>
+            <div style="display: flex; align-items: center; margin-bottom: 6px;">
+                <div style="width: 25px; height: 25px; border-radius: 50%;
+                           background-color: #FED976; border: 2px solid #FED976;
+                           margin-right: 10px; opacity: 0.8;"></div>
+                <span><b>Low Density:</b> &lt; 33,281 tCO2eq/km²</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 6px;">
+                <div style="width: 25px; height: 25px; border-radius: 50%;
+                           background-color: #FD8D3C; border: 2px solid #FD8D3C;
+                           margin-right: 10px; opacity: 0.8;"></div>
+                <span><b>Medium Density:</b> 33,281 - 49,268 tCO2eq/km²</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <div style="width: 25px; height: 25px; border-radius: 50%;
+                           background-color: #E31A1C; border: 2px solid #E31A1C;
+                           margin-right: 10px; opacity: 0.8;"></div>
+                <span><b>High Density:</b> &gt; 49,268 tCO2eq/km²</span>
+            </div>
+        </div>
+
+        <div style="border-top: 2px solid #ddd; padding-top: 12px; margin-top: 12px;">
+            <h4 style="margin: 0 0 8px 0; color: #333;">📈 Summary Statistics</h4>
+            <div style="font-size: 13px; line-height: 1.4;">
+                <div><b>Total Transport Emissions:</b> 505,794 tCO2eq</div>
+                <div><b>Average per District:</b> 33,720 tCO2eq</div>
+                <div><b>Number of Districts:</b> 15</div>
+                <div><b>Highest Emitter:</b> Sur</div>
+                <div><b>Lowest Emitter:</b> Las Fuentes</div>
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid #ddd; padding-top: 8px; margin-top: 8px;
+                    font-size: 12px; color: #666; text-align: center;">
+            💡 Circle size = Total emissions | Color = Emission density<br>
+            Click circles for detailed information
+        </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_117cce2f144ab555331ff22f8d61df16" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_117cce2f144ab555331ff22f8d61df16 = L.map(
+                "map_117cce2f144ab555331ff22f8d61df16",
+                {
+                    center: [41.6488, -0.8891],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_73dbfcb6d2034f9b1cbebd4995ac8862 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_73dbfcb6d2034f9b1cbebd4995ac8862.addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var tile_layer_4b2746f86a6af1e78eb6af3feff821a1 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var tile_layer_ecfc6772b37d2787b9658a4ddc226e0d = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var circle_44d51057c8822f7dc1671e6e552593f3 = L.circle(
+                [41.660092960674255, -0.932283968026374],
+                {"bubblingMouseEvents": true, "color": "#FED976", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FED976", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 433.8312195584301, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_c7e50c884edc837c46392c29278a8d71 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_43c31e4853cc0cc703e9f6933ffb0a57 = $(`<div id="html_43c31e4853cc0cc703e9f6933ffb0a57" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Miralbueno             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">22,451 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">246 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">22,696 tCO2eq</span>                     <b>Density:</b> <span>2,527 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>8.98 km²</span>                     <b>ID:</b> <span>10</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FED976; font-weight: bold;">Low</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 11,049 tCO2eq</div>                     <div><b>Industrial:</b> 0 tCO2eq</div>                     <div><b>Services:</b> 327 tCO2eq</div>                     <div><b>Waste:</b> 0 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_c7e50c884edc837c46392c29278a8d71.setContent(html_43c31e4853cc0cc703e9f6933ffb0a57);
+            
+        
+
+        circle_44d51057c8822f7dc1671e6e552593f3.bindPopup(popup_c7e50c884edc837c46392c29278a8d71)
+        ;
+
+        
+    
+    
+            circle_44d51057c8822f7dc1671e6e552593f3.bindTooltip(
+                `<div>
+                     🏭 Miralbueno<br>Transport: 22,696 tCO2eq<br>Density: 2,527 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_b56cda08d5d013ff65bb29148eed06f6 = L.marker(
+                [41.660092960674255, -0.932283968026374],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_92018e1bc1a00c5cab2ab83b891a448c = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Miralbueno\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e22,696 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_b56cda08d5d013ff65bb29148eed06f6.setIcon(div_icon_92018e1bc1a00c5cab2ab83b891a448c);
+            
+    
+            var circle_b8ed13c0f34620b6d1b33e01040fa018 = L.circle(
+                [41.64354149492588, -0.859403735211228],
+                {"bubblingMouseEvents": true, "color": "#FED976", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FED976", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 300.0, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_ca54c6f27c67ed3065986f3c4f478d80 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_16f33e716af3d9b4930b20cdd91d009e = $(`<div id="html_16f33e716af3d9b4930b20cdd91d009e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Las Fuentes             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">17,019 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">274 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">17,293 tCO2eq</span>                     <b>Density:</b> <span>2,740 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>6.31 km²</span>                     <b>ID:</b> <span>8</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FED976; font-weight: bold;">Low</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 28,614 tCO2eq</div>                     <div><b>Industrial:</b> 16 tCO2eq</div>                     <div><b>Services:</b> 1,150 tCO2eq</div>                     <div><b>Waste:</b> 0 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_ca54c6f27c67ed3065986f3c4f478d80.setContent(html_16f33e716af3d9b4930b20cdd91d009e);
+            
+        
+
+        circle_b8ed13c0f34620b6d1b33e01040fa018.bindPopup(popup_ca54c6f27c67ed3065986f3c4f478d80)
+        ;
+
+        
+    
+    
+            circle_b8ed13c0f34620b6d1b33e01040fa018.bindTooltip(
+                `<div>
+                     🏭 Las Fuentes<br>Transport: 17,293 tCO2eq<br>Density: 2,740 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_87b350b6a754f280f0f1c798d0f07cdd = L.marker(
+                [41.64354149492588, -0.859403735211228],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_9bad5644c35b8120de5b38a8a5293213 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Las Fuentes\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e17,293 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_87b350b6a754f280f0f1c798d0f07cdd.setIcon(div_icon_9bad5644c35b8120de5b38a8a5293213);
+            
+    
+            var circle_0c005da92f37a26a628f2ce02ca65676 = L.circle(
+                [41.66093225247575, -0.902291980680876],
+                {"bubblingMouseEvents": true, "color": "#FD8D3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FD8D3C", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 1040.5648887588675, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_d8ae6dc0c14cf86b4adbdfb373a44539 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_d42291a95d2c48177394fb51ecc10b01 = $(`<div id="html_d42291a95d2c48177394fb51ecc10b01" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 La Almozara             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">46,439 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">753 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">47,192 tCO2eq</span>                     <b>Density:</b> <span>8,320 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>5.67 km²</span>                     <b>ID:</b> <span>4</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FD8D3C; font-weight: bold;">Medium</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 21,876 tCO2eq</div>                     <div><b>Industrial:</b> 0 tCO2eq</div>                     <div><b>Services:</b> 1,809 tCO2eq</div>                     <div><b>Waste:</b> 925 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_d8ae6dc0c14cf86b4adbdfb373a44539.setContent(html_d42291a95d2c48177394fb51ecc10b01);
+            
+        
+
+        circle_0c005da92f37a26a628f2ce02ca65676.bindPopup(popup_d8ae6dc0c14cf86b4adbdfb373a44539)
+        ;
+
+        
+    
+    
+            circle_0c005da92f37a26a628f2ce02ca65676.bindTooltip(
+                `<div>
+                     🏭 La Almozara<br>Transport: 47,192 tCO2eq<br>Density: 8,320 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_d80e24e9cd2410f6c1f664818f0d895a = L.marker(
+                [41.66093225247575, -0.902291980680876],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_6de1f048590176773524c0fd237828e2 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    La Almozara\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e47,192 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_d80e24e9cd2410f6c1f664818f0d895a.setIcon(div_icon_6de1f048590176773524c0fd237828e2);
+            
+    
+            var circle_b12b171baa92a05b17c104371b619306 = L.circle(
+                [41.64617959989583, -0.883453058740132],
+                {"bubblingMouseEvents": true, "color": "#E31A1C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E31A1C", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 471.53917707783523, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_57dfbb35a348dfc04d47e2660fd1b271 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_b7527c335d3db809e0538b2429a95cb6 = $(`<div id="html_b7527c335d3db809e0538b2429a95cb6" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Centro             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">23,260 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">959 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">24,218 tCO2eq</span>                     <b>Density:</b> <span>13,390 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>1.81 km²</span>                     <b>ID:</b> <span>2</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #E31A1C; font-weight: bold;">High</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 66,227 tCO2eq</div>                     <div><b>Industrial:</b> 0 tCO2eq</div>                     <div><b>Services:</b> 13,064 tCO2eq</div>                     <div><b>Waste:</b> 0 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_57dfbb35a348dfc04d47e2660fd1b271.setContent(html_b7527c335d3db809e0538b2429a95cb6);
+            
+        
+
+        circle_b12b171baa92a05b17c104371b619306.bindPopup(popup_57dfbb35a348dfc04d47e2660fd1b271)
+        ;
+
+        
+    
+    
+            circle_b12b171baa92a05b17c104371b619306.bindTooltip(
+                `<div>
+                     🏭 Centro<br>Transport: 24,218 tCO2eq<br>Density: 13,390 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_11909fcda275e49045b1fd9498301077 = L.marker(
+                [41.64617959989583, -0.883453058740132],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_09fe7188faf380799e452ec2f2c18502 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Centro\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e24,218 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_11909fcda275e49045b1fd9498301077.setIcon(div_icon_09fe7188faf380799e452ec2f2c18502);
+            
+    
+            var circle_6025599e37f06dae40a3044075ae571b = L.circle(
+                [41.63200488600944, -0.8700436324543721],
+                {"bubblingMouseEvents": true, "color": "#FD8D3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FD8D3C", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 464.41677872429466, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_554915dddb8f9608a52dd56027ff4b50 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_a26439ef7cbb972f0ed32a92531f7465 = $(`<div id="html_a26439ef7cbb972f0ed32a92531f7465" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 San José             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">23,334 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">597 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">23,931 tCO2eq</span>                     <b>Density:</b> <span>6,584 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>3.63 km²</span>                     <b>ID:</b> <span>7</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FD8D3C; font-weight: bold;">Medium</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 49,872 tCO2eq</div>                     <div><b>Industrial:</b> 9,986 tCO2eq</div>                     <div><b>Services:</b> 1,207 tCO2eq</div>                     <div><b>Waste:</b> 0 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_554915dddb8f9608a52dd56027ff4b50.setContent(html_a26439ef7cbb972f0ed32a92531f7465);
+            
+        
+
+        circle_6025599e37f06dae40a3044075ae571b.bindPopup(popup_554915dddb8f9608a52dd56027ff4b50)
+        ;
+
+        
+    
+    
+            circle_6025599e37f06dae40a3044075ae571b.bindTooltip(
+                `<div>
+                     🏭 San José<br>Transport: 23,931 tCO2eq<br>Density: 6,584 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_18f58d70245b09d72f7b13b1f057f766 = L.marker(
+                [41.63200488600944, -0.8700436324543721],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_ca0280e56e930022028f67761c2a6b1e = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    San Jos\u00e9\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e23,931 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_18f58d70245b09d72f7b13b1f057f766.setIcon(div_icon_ca0280e56e930022028f67761c2a6b1e);
+            
+    
+            var circle_7717ca3e02d961593690fb2256d86bae = L.circle(
+                [41.63783739214298, -0.898358046016372],
+                {"bubblingMouseEvents": true, "color": "#FD8D3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FD8D3C", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 503.0260057722853, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_42c7c1f41fbb5e53302d122de45338da = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_31bf961b1e93a6ae5531825998b308de = $(`<div id="html_31bf961b1e93a6ae5531825998b308de" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Universidad             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">24,633 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">856 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">25,490 tCO2eq</span>                     <b>Density:</b> <span>8,342 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>3.06 km²</span>                     <b>ID:</b> <span>5</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FD8D3C; font-weight: bold;">Medium</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 51,349 tCO2eq</div>                     <div><b>Industrial:</b> 0 tCO2eq</div>                     <div><b>Services:</b> 17,702 tCO2eq</div>                     <div><b>Waste:</b> 0 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_42c7c1f41fbb5e53302d122de45338da.setContent(html_31bf961b1e93a6ae5531825998b308de);
+            
+        
+
+        circle_7717ca3e02d961593690fb2256d86bae.bindPopup(popup_42c7c1f41fbb5e53302d122de45338da)
+        ;
+
+        
+    
+    
+            circle_7717ca3e02d961593690fb2256d86bae.bindTooltip(
+                `<div>
+                     🏭 Universidad<br>Transport: 25,490 tCO2eq<br>Density: 8,342 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_516b4e197c85c1095f441e7763fe741e = L.marker(
+                [41.63783739214298, -0.898358046016372],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_8efa183b0f0a7712dac7530809efd3b8 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Universidad\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e25,490 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_516b4e197c85c1095f441e7763fe741e.setIcon(div_icon_8efa183b0f0a7712dac7530809efd3b8);
+            
+    
+            var circle_5f816653dacd545ed3884d042accff63 = L.circle(
+                [41.65460063311981, -0.8779785521791871],
+                {"bubblingMouseEvents": true, "color": "#E31A1C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E31A1C", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 374.8991464320236, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_a966e2f01af38125d6996f890081f4d9 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_258c7ae76955afd0ca329491e7425aeb = $(`<div id="html_258c7ae76955afd0ca329491e7425aeb" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Casco Histórico             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">19,481 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">836 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">20,317 tCO2eq</span>                     <b>Density:</b> <span>10,238 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>1.98 km²</span>                     <b>ID:</b> <span>1</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #E31A1C; font-weight: bold;">High</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 47,408 tCO2eq</div>                     <div><b>Industrial:</b> 0 tCO2eq</div>                     <div><b>Services:</b> 4,310 tCO2eq</div>                     <div><b>Waste:</b> 0 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_a966e2f01af38125d6996f890081f4d9.setContent(html_258c7ae76955afd0ca329491e7425aeb);
+            
+        
+
+        circle_5f816653dacd545ed3884d042accff63.bindPopup(popup_a966e2f01af38125d6996f890081f4d9)
+        ;
+
+        
+    
+    
+            circle_5f816653dacd545ed3884d042accff63.bindTooltip(
+                `<div>
+                     🏭 Casco Histórico<br>Transport: 20,317 tCO2eq<br>Density: 10,238 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_4be9e6bb4ce7258d5e750ef49185cf83 = L.marker(
+                [41.65460063311981, -0.8779785521791871],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_a077e5b652acf74390e48f08af899012 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Casco Hist\u00f3rico\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e20,317 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_4be9e6bb4ce7258d5e750ef49185cf83.setIcon(div_icon_a077e5b652acf74390e48f08af899012);
+            
+    
+            var circle_ee320b9b5a7af44cdb5a0d1c85f2fa3f = L.circle(
+                [41.626707745845984, -0.9108046551088741],
+                {"bubblingMouseEvents": true, "color": "#FD8D3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FD8D3C", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 770.7681909093476, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_95603fe723726e19a748adc47e055e1d = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_ac9e7ec1ad471acde3de640d06a1fb89 = $(`<div id="html_ac9e7ec1ad471acde3de640d06a1fb89" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Casablanca             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">35,684 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">615 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">36,299 tCO2eq</span>                     <b>Density:</b> <span>4,948 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>7.34 km²</span>                     <b>ID:</b> <span>6</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FD8D3C; font-weight: bold;">Medium</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 10,194 tCO2eq</div>                     <div><b>Industrial:</b> 49,869 tCO2eq</div>                     <div><b>Services:</b> 1,187 tCO2eq</div>                     <div><b>Waste:</b> 49 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_95603fe723726e19a748adc47e055e1d.setContent(html_ac9e7ec1ad471acde3de640d06a1fb89);
+            
+        
+
+        circle_ee320b9b5a7af44cdb5a0d1c85f2fa3f.bindPopup(popup_95603fe723726e19a748adc47e055e1d)
+        ;
+
+        
+    
+    
+            circle_ee320b9b5a7af44cdb5a0d1c85f2fa3f.bindTooltip(
+                `<div>
+                     🏭 Casablanca<br>Transport: 36,299 tCO2eq<br>Density: 4,948 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_1f14141b3e2ff123f722c54540562895 = L.marker(
+                [41.626707745845984, -0.9108046551088741],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_2e865084f5fba7c866312e3ce609fc28 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Casablanca\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e36,299 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_1f14141b3e2ff123f722c54540562895.setIcon(div_icon_2e865084f5fba7c866312e3ce609fc28);
+            
+    
+            var circle_3f8d4eab3001a14d1800ce1cd5bc477c = L.circle(
+                [41.66874614803759, -0.825480540548974],
+                {"bubblingMouseEvents": true, "color": "#FED976", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FED976", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 485.74062788116134, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_f4ec2e7fc2b54e8b32fe4e10aa782718 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_5a98035ba4c50bf7938070baf9a7171f = $(`<div id="html_5a98035ba4c50bf7938070baf9a7171f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Santa Isabel             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">24,543 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">248 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">24,792 tCO2eq</span>                     <b>Density:</b> <span>3,109 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>7.97 km²</span>                     <b>ID:</b> <span>22</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FED976; font-weight: bold;">Low</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 10,123 tCO2eq</div>                     <div><b>Industrial:</b> 94,733 tCO2eq</div>                     <div><b>Services:</b> 364 tCO2eq</div>                     <div><b>Waste:</b> 0 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_f4ec2e7fc2b54e8b32fe4e10aa782718.setContent(html_5a98035ba4c50bf7938070baf9a7171f);
+            
+        
+
+        circle_3f8d4eab3001a14d1800ce1cd5bc477c.bindPopup(popup_f4ec2e7fc2b54e8b32fe4e10aa782718)
+        ;
+
+        
+    
+    
+            circle_3f8d4eab3001a14d1800ce1cd5bc477c.bindTooltip(
+                `<div>
+                     🏭 Santa Isabel<br>Transport: 24,792 tCO2eq<br>Density: 3,109 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_53f1191523d551fd5c9e5365ba564150 = L.marker(
+                [41.66874614803759, -0.825480540548974],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_82230615e7ad9bf51d8753c8a9fd109e = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Santa Isabel\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e24,792 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_53f1191523d551fd5c9e5365ba564150.setIcon(div_icon_82230615e7ad9bf51d8753c8a9fd109e);
+            
+    
+            var circle_7be47c87fea950c88600f1022b11b1a0 = L.circle(
+                [41.62745329153473, -0.9353249141695341],
+                {"bubblingMouseEvents": true, "color": "#FED976", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FED976", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 1500.0, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_65b27141725f4cea0183f95b98719db9 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_e62c44002a27c4a156b29d685a49b232 = $(`<div id="html_e62c44002a27c4a156b29d685a49b232" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Sur             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">65,014 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">726 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">65,740 tCO2eq</span>                     <b>Density:</b> <span>1,109 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>59.30 km²</span>                     <b>ID:</b> <span>29</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FED976; font-weight: bold;">Low</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 29,504 tCO2eq</div>                     <div><b>Industrial:</b> 0 tCO2eq</div>                     <div><b>Services:</b> 989 tCO2eq</div>                     <div><b>Waste:</b> 49 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_65b27141725f4cea0183f95b98719db9.setContent(html_e62c44002a27c4a156b29d685a49b232);
+            
+        
+
+        circle_7be47c87fea950c88600f1022b11b1a0.bindPopup(popup_65b27141725f4cea0183f95b98719db9)
+        ;
+
+        
+    
+    
+            circle_7be47c87fea950c88600f1022b11b1a0.bindTooltip(
+                `<div>
+                     🏭 Sur<br>Transport: 65,740 tCO2eq<br>Density: 1,109 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_1a2e76f37ce8c4a09d20825ca2a08189 = L.marker(
+                [41.62745329153473, -0.9353249141695341],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_5f979cc1dba12c02d56bf64e700f631b = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Sur\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e65,740 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_1a2e76f37ce8c4a09d20825ca2a08189.setIcon(div_icon_5f979cc1dba12c02d56bf64e700f631b);
+            
+    
+            var circle_dd583feaa65969588d4069660c9e23d9 = L.circle(
+                [41.6501615517379, -0.90783833054163],
+                {"bubblingMouseEvents": true, "color": "#E31A1C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E31A1C", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 639.1006098573363, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_b7b447198fd4e2e9c00caedc7559c41d = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_b6ef67923eb4ca2ecbaecc84a04901c1 = $(`<div id="html_b6ef67923eb4ca2ecbaecc84a04901c1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Delicias             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">29,857 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">1,127 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">30,983 tCO2eq</span>                     <b>Density:</b> <span>10,700 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>2.90 km²</span>                     <b>ID:</b> <span>3</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #E31A1C; font-weight: bold;">High</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 72,932 tCO2eq</div>                     <div><b>Industrial:</b> 0 tCO2eq</div>                     <div><b>Services:</b> 929 tCO2eq</div>                     <div><b>Waste:</b> 0 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_b7b447198fd4e2e9c00caedc7559c41d.setContent(html_b6ef67923eb4ca2ecbaecc84a04901c1);
+            
+        
+
+        circle_dd583feaa65969588d4069660c9e23d9.bindPopup(popup_b7b447198fd4e2e9c00caedc7559c41d)
+        ;
+
+        
+    
+    
+            circle_dd583feaa65969588d4069660c9e23d9.bindTooltip(
+                `<div>
+                     🏭 Delicias<br>Transport: 30,983 tCO2eq<br>Density: 10,700 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_c550220405143d1be1231aac717daccf = L.marker(
+                [41.6501615517379, -0.90783833054163],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_af97b3c492c9142800932a3aa268c87d = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Delicias\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e30,983 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_c550220405143d1be1231aac717daccf.setIcon(div_icon_af97b3c492c9142800932a3aa268c87d);
+            
+    
+            var circle_b8d685063f64f3c6d605650f2c925340 = L.circle(
+                [41.6729957660477, -0.8902143892619451],
+                {"bubblingMouseEvents": true, "color": "#FD8D3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FD8D3C", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 1308.9055537135791, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_15003f7b4dae98ba2e9f6add3d1461d7 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_d8665aa378a76a389edd4ccbd04386e5 = $(`<div id="html_d8665aa378a76a389edd4ccbd04386e5" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Actur - Rey Fernando             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">57,285 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">740 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">58,025 tCO2eq</span>                     <b>Density:</b> <span>6,015 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>9.65 km²</span>                     <b>ID:</b> <span>14</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FD8D3C; font-weight: bold;">Medium</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 39,060 tCO2eq</div>                     <div><b>Industrial:</b> 37,852 tCO2eq</div>                     <div><b>Services:</b> 6,588 tCO2eq</div>                     <div><b>Waste:</b> 0 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_15003f7b4dae98ba2e9f6add3d1461d7.setContent(html_d8665aa378a76a389edd4ccbd04386e5);
+            
+        
+
+        circle_b8d685063f64f3c6d605650f2c925340.bindPopup(popup_15003f7b4dae98ba2e9f6add3d1461d7)
+        ;
+
+        
+    
+    
+            circle_b8d685063f64f3c6d605650f2c925340.bindTooltip(
+                `<div>
+                     🏭 Actur - Rey Fernando<br>Transport: 58,025 tCO2eq<br>Density: 6,015 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_e9aecff9fde7e3c34e1a2635f78c3630 = L.marker(
+                [41.6729957660477, -0.8902143892619451],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_e6276097a79453fb4ff32fc30a13e0fb = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Actur - Rey Fernando\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e58,025 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_e9aecff9fde7e3c34e1a2635f78c3630.setIcon(div_icon_e6276097a79453fb4ff32fc30a13e0fb);
+            
+    
+            var circle_dd4f5834972247cce46f96d354466cb4 = L.circle(
+                [41.66667655948478, -0.8618466182072091],
+                {"bubblingMouseEvents": true, "color": "#FD8D3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FD8D3C", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 1200.5175434502057, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_91575210669400e12533f03ef5239789 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_4f8eaf74c5b2eddc53f1b941ee5710b0 = $(`<div id="html_4f8eaf74c5b2eddc53f1b941ee5710b0" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 El Rabal             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">52,565 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">1,085 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">53,649 tCO2eq</span>                     <b>Density:</b> <span>6,387 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>8.40 km²</span>                     <b>ID:</b> <span>15</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FD8D3C; font-weight: bold;">Medium</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 50,736 tCO2eq</div>                     <div><b>Industrial:</b> 292,491 tCO2eq</div>                     <div><b>Services:</b> 1,752 tCO2eq</div>                     <div><b>Waste:</b> 5 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_91575210669400e12533f03ef5239789.setContent(html_4f8eaf74c5b2eddc53f1b941ee5710b0);
+            
+        
+
+        circle_dd4f5834972247cce46f96d354466cb4.bindPopup(popup_91575210669400e12533f03ef5239789)
+        ;
+
+        
+    
+    
+            circle_dd4f5834972247cce46f96d354466cb4.bindTooltip(
+                `<div>
+                     🏭 El Rabal<br>Transport: 53,649 tCO2eq<br>Density: 6,387 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cdefddb3e1fc37287b5e7d6bda17132b = L.marker(
+                [41.66667655948478, -0.8618466182072091],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_e0756b7309e6a41cfeabb67ff811516a = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    El Rabal\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e53,649 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_cdefddb3e1fc37287b5e7d6bda17132b.setIcon(div_icon_e0756b7309e6a41cfeabb67ff811516a);
+            
+    
+            var circle_262f221717e0ba7c604c948be7871026 = L.circle(
+                [41.644872023858156, -0.9277149388008571],
+                {"bubblingMouseEvents": true, "color": "#FD8D3C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FD8D3C", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 389.5875389837871, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_51b2065edc8869dc34bccd976e234ae6 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_ef15b771d5bda16af4cf55d2463a8206 = $(`<div id="html_ef15b771d5bda16af4cf55d2463a8206" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Oliver - Valdefierro             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">20,523 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">387 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">20,910 tCO2eq</span>                     <b>Density:</b> <span>5,834 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>3.58 km²</span>                     <b>ID:</b> <span>11</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FD8D3C; font-weight: bold;">Medium</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 23,392 tCO2eq</div>                     <div><b>Industrial:</b> 1,328 tCO2eq</div>                     <div><b>Services:</b> 1,052 tCO2eq</div>                     <div><b>Waste:</b> 0 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_51b2065edc8869dc34bccd976e234ae6.setContent(html_ef15b771d5bda16af4cf55d2463a8206);
+            
+        
+
+        circle_262f221717e0ba7c604c948be7871026.bindPopup(popup_51b2065edc8869dc34bccd976e234ae6)
+        ;
+
+        
+    
+    
+            circle_262f221717e0ba7c604c948be7871026.bindTooltip(
+                `<div>
+                     🏭 Oliver - Valdefierro<br>Transport: 20,910 tCO2eq<br>Density: 5,834 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_bf7eabc1b421992328e95527e882afa4 = L.marker(
+                [41.644872023858156, -0.9277149388008571],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_a8599e59e4236aaee78d957c74e65577 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Oliver - Valdefierro\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e20,910 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_bf7eabc1b421992328e95527e882afa4.setIcon(div_icon_a8599e59e4236aaee78d957c74e65577);
+            
+    
+            var circle_f154435761a220ab3175059dc2d3c5ef = L.circle(
+                [41.62610716739059, -0.8826508088416881],
+                {"bubblingMouseEvents": true, "color": "#FED976", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FED976", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 720.2320894752334, "stroke": true, "weight": 3}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+        var popup_a612dff73e0d1251fb4aead86beca9cd = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_c52627463d275547ac12ff0392fcca2c = $(`<div id="html_c52627463d275547ac12ff0392fcca2c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 320px; padding: 10px;">             <h3 style="margin: 0 0 10px 0; color: #E31A1C; text-align: center; border-bottom: 2px solid #E31A1C; padding-bottom: 5px;">                 🏭 Torrero - La Paz             </h3>              <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🚦 Transport Emissions</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Private Transport:</b> <span style="color: #E31A1C;">33,521 tCO2eq</span>                     <b>Public Transport:</b> <span style="color: #1F78B4;">737 tCO2eq</span>                     <b>Total Transport:</b> <span style="font-weight: bold; color: #000;">34,259 tCO2eq</span>                     <b>Density:</b> <span>307 tCO2eq/km²</span>                 </div>             </div>              <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏘️ District Info</h4>                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">                     <b>Area:</b> <span>111.44 km²</span>                     <b>ID:</b> <span>12</span>                     <b>Year:</b> <span>2023</span>                     <b>Intensity:</b> <span style="color: #FED976; font-weight: bold;">Low</span>                 </div>             </div>              <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">                 <h4 style="margin: 0 0 8px 0; color: #333;">🏢 Other Emissions</h4>                 <div style="font-size: 12px;">                     <div><b>Residential:</b> 28,326 tCO2eq</div>                     <div><b>Industrial:</b> 78,975 tCO2eq</div>                     <div><b>Services:</b> 2,508 tCO2eq</div>                     <div><b>Waste:</b> 41,689 tCO2eq</div>                 </div>             </div>         </div>         </div>`)[0];
+                popup_a612dff73e0d1251fb4aead86beca9cd.setContent(html_c52627463d275547ac12ff0392fcca2c);
+            
+        
+
+        circle_f154435761a220ab3175059dc2d3c5ef.bindPopup(popup_a612dff73e0d1251fb4aead86beca9cd)
+        ;
+
+        
+    
+    
+            circle_f154435761a220ab3175059dc2d3c5ef.bindTooltip(
+                `<div>
+                     🏭 Torrero - La Paz<br>Transport: 34,259 tCO2eq<br>Density: 307 tCO2eq/km²
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ecc216c6f1b41ed622c4fedbe27062c0 = L.marker(
+                [41.62610716739059, -0.8826508088416881],
+                {
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+            var div_icon_179441d221eb91d0d289153653153155 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 11px; font-weight: bold; color: #333;\n                           text-align: center; white-space: nowrap;\n                           text-shadow: 2px 2px 4px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;\n                           background-color: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;\"\u003e\n                    Torrero - La Paz\u003cbr\u003e\n                    \u003cspan style=\"color: #E31A1C; font-size: 10px;\"\u003e34,259 tCO2eq\u003c/span\u003e\n                \u003c/div\u003e\n                ",
+  "iconSize": [120, 35],
+  "iconAnchor": [60, 17],
+  "className": "empty",
+});
+        
+    
+                marker_ecc216c6f1b41ed622c4fedbe27062c0.setIcon(div_icon_179441d221eb91d0d289153653153155);
+            
+    
+            var layer_control_a252c6c4aa6ebde7a4cf978413bfd4dc_layers = {
+                base_layers : {
+                    "\ud83d\uddfa\ufe0f Standard Map" : tile_layer_73dbfcb6d2034f9b1cbebd4995ac8862,
+                    "\ud83c\udf1f Light Theme" : tile_layer_4b2746f86a6af1e78eb6af3feff821a1,
+                    "\ud83c\udf19 Dark Theme" : tile_layer_ecfc6772b37d2787b9658a4ddc226e0d,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_a252c6c4aa6ebde7a4cf978413bfd4dc = L.control.layers(
+                layer_control_a252c6c4aa6ebde7a4cf978413bfd4dc_layers.base_layers,
+                layer_control_a252c6c4aa6ebde7a4cf978413bfd4dc_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_117cce2f144ab555331ff22f8d61df16);
+
+        
+    
+            tile_layer_73dbfcb6d2034f9b1cbebd4995ac8862.addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+                marker_b56cda08d5d013ff65bb29148eed06f6.setIcon(div_icon_92018e1bc1a00c5cab2ab83b891a448c);
+            
+    
+                marker_87b350b6a754f280f0f1c798d0f07cdd.setIcon(div_icon_9bad5644c35b8120de5b38a8a5293213);
+            
+    
+                marker_d80e24e9cd2410f6c1f664818f0d895a.setIcon(div_icon_6de1f048590176773524c0fd237828e2);
+            
+    
+                marker_11909fcda275e49045b1fd9498301077.setIcon(div_icon_09fe7188faf380799e452ec2f2c18502);
+            
+    
+                marker_18f58d70245b09d72f7b13b1f057f766.setIcon(div_icon_ca0280e56e930022028f67761c2a6b1e);
+            
+    
+                marker_516b4e197c85c1095f441e7763fe741e.setIcon(div_icon_8efa183b0f0a7712dac7530809efd3b8);
+            
+    
+                marker_4be9e6bb4ce7258d5e750ef49185cf83.setIcon(div_icon_a077e5b652acf74390e48f08af899012);
+            
+    
+                marker_1f14141b3e2ff123f722c54540562895.setIcon(div_icon_2e865084f5fba7c866312e3ce609fc28);
+            
+    
+                marker_53f1191523d551fd5c9e5365ba564150.setIcon(div_icon_82230615e7ad9bf51d8753c8a9fd109e);
+            
+    
+                marker_1a2e76f37ce8c4a09d20825ca2a08189.setIcon(div_icon_5f979cc1dba12c02d56bf64e700f631b);
+            
+    
+                marker_c550220405143d1be1231aac717daccf.setIcon(div_icon_af97b3c492c9142800932a3aa268c87d);
+            
+    
+                marker_e9aecff9fde7e3c34e1a2635f78c3630.setIcon(div_icon_e6276097a79453fb4ff32fc30a13e0fb);
+            
+    
+                marker_cdefddb3e1fc37287b5e7d6bda17132b.setIcon(div_icon_e0756b7309e6a41cfeabb67ff811516a);
+            
+    
+                marker_bf7eabc1b421992328e95527e882afa4.setIcon(div_icon_a8599e59e4236aaee78d957c74e65577);
+            
+    
+                marker_ecc216c6f1b41ed622c4fedbe27062c0.setIcon(div_icon_179441d221eb91d0d289153653153155);
+            
+    
+            tile_layer_73dbfcb6d2034f9b1cbebd4995ac8862.addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+                marker_b56cda08d5d013ff65bb29148eed06f6.setIcon(div_icon_92018e1bc1a00c5cab2ab83b891a448c);
+            
+    
+                marker_87b350b6a754f280f0f1c798d0f07cdd.setIcon(div_icon_9bad5644c35b8120de5b38a8a5293213);
+            
+    
+                marker_d80e24e9cd2410f6c1f664818f0d895a.setIcon(div_icon_6de1f048590176773524c0fd237828e2);
+            
+    
+                marker_11909fcda275e49045b1fd9498301077.setIcon(div_icon_09fe7188faf380799e452ec2f2c18502);
+            
+    
+                marker_18f58d70245b09d72f7b13b1f057f766.setIcon(div_icon_ca0280e56e930022028f67761c2a6b1e);
+            
+    
+                marker_516b4e197c85c1095f441e7763fe741e.setIcon(div_icon_8efa183b0f0a7712dac7530809efd3b8);
+            
+    
+                marker_4be9e6bb4ce7258d5e750ef49185cf83.setIcon(div_icon_a077e5b652acf74390e48f08af899012);
+            
+    
+                marker_1f14141b3e2ff123f722c54540562895.setIcon(div_icon_2e865084f5fba7c866312e3ce609fc28);
+            
+    
+                marker_53f1191523d551fd5c9e5365ba564150.setIcon(div_icon_82230615e7ad9bf51d8753c8a9fd109e);
+            
+    
+                marker_1a2e76f37ce8c4a09d20825ca2a08189.setIcon(div_icon_5f979cc1dba12c02d56bf64e700f631b);
+            
+    
+                marker_c550220405143d1be1231aac717daccf.setIcon(div_icon_af97b3c492c9142800932a3aa268c87d);
+            
+    
+                marker_e9aecff9fde7e3c34e1a2635f78c3630.setIcon(div_icon_e6276097a79453fb4ff32fc30a13e0fb);
+            
+    
+                marker_cdefddb3e1fc37287b5e7d6bda17132b.setIcon(div_icon_e0756b7309e6a41cfeabb67ff811516a);
+            
+    
+                marker_bf7eabc1b421992328e95527e882afa4.setIcon(div_icon_a8599e59e4236aaee78d957c74e65577);
+            
+    
+                marker_ecc216c6f1b41ed622c4fedbe27062c0.setIcon(div_icon_179441d221eb91d0d289153653153155);
+            
+    
+            tile_layer_73dbfcb6d2034f9b1cbebd4995ac8862.addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+                marker_b56cda08d5d013ff65bb29148eed06f6.setIcon(div_icon_92018e1bc1a00c5cab2ab83b891a448c);
+            
+    
+                marker_87b350b6a754f280f0f1c798d0f07cdd.setIcon(div_icon_9bad5644c35b8120de5b38a8a5293213);
+            
+    
+                marker_d80e24e9cd2410f6c1f664818f0d895a.setIcon(div_icon_6de1f048590176773524c0fd237828e2);
+            
+    
+                marker_11909fcda275e49045b1fd9498301077.setIcon(div_icon_09fe7188faf380799e452ec2f2c18502);
+            
+    
+                marker_18f58d70245b09d72f7b13b1f057f766.setIcon(div_icon_ca0280e56e930022028f67761c2a6b1e);
+            
+    
+                marker_516b4e197c85c1095f441e7763fe741e.setIcon(div_icon_8efa183b0f0a7712dac7530809efd3b8);
+            
+    
+                marker_4be9e6bb4ce7258d5e750ef49185cf83.setIcon(div_icon_a077e5b652acf74390e48f08af899012);
+            
+    
+                marker_1f14141b3e2ff123f722c54540562895.setIcon(div_icon_2e865084f5fba7c866312e3ce609fc28);
+            
+    
+                marker_53f1191523d551fd5c9e5365ba564150.setIcon(div_icon_82230615e7ad9bf51d8753c8a9fd109e);
+            
+    
+                marker_1a2e76f37ce8c4a09d20825ca2a08189.setIcon(div_icon_5f979cc1dba12c02d56bf64e700f631b);
+            
+    
+                marker_c550220405143d1be1231aac717daccf.setIcon(div_icon_af97b3c492c9142800932a3aa268c87d);
+            
+    
+                marker_e9aecff9fde7e3c34e1a2635f78c3630.setIcon(div_icon_e6276097a79453fb4ff32fc30a13e0fb);
+            
+    
+                marker_cdefddb3e1fc37287b5e7d6bda17132b.setIcon(div_icon_e0756b7309e6a41cfeabb67ff811516a);
+            
+    
+                marker_bf7eabc1b421992328e95527e882afa4.setIcon(div_icon_a8599e59e4236aaee78d957c74e65577);
+            
+    
+                marker_ecc216c6f1b41ed622c4fedbe27062c0.setIcon(div_icon_179441d221eb91d0d289153653153155);
+            
+    
+            tile_layer_73dbfcb6d2034f9b1cbebd4995ac8862.addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+                marker_b56cda08d5d013ff65bb29148eed06f6.setIcon(div_icon_92018e1bc1a00c5cab2ab83b891a448c);
+            
+    
+                marker_87b350b6a754f280f0f1c798d0f07cdd.setIcon(div_icon_9bad5644c35b8120de5b38a8a5293213);
+            
+    
+                marker_d80e24e9cd2410f6c1f664818f0d895a.setIcon(div_icon_6de1f048590176773524c0fd237828e2);
+            
+    
+                marker_11909fcda275e49045b1fd9498301077.setIcon(div_icon_09fe7188faf380799e452ec2f2c18502);
+            
+    
+                marker_18f58d70245b09d72f7b13b1f057f766.setIcon(div_icon_ca0280e56e930022028f67761c2a6b1e);
+            
+    
+                marker_516b4e197c85c1095f441e7763fe741e.setIcon(div_icon_8efa183b0f0a7712dac7530809efd3b8);
+            
+    
+                marker_4be9e6bb4ce7258d5e750ef49185cf83.setIcon(div_icon_a077e5b652acf74390e48f08af899012);
+            
+    
+                marker_1f14141b3e2ff123f722c54540562895.setIcon(div_icon_2e865084f5fba7c866312e3ce609fc28);
+            
+    
+                marker_53f1191523d551fd5c9e5365ba564150.setIcon(div_icon_82230615e7ad9bf51d8753c8a9fd109e);
+            
+    
+                marker_1a2e76f37ce8c4a09d20825ca2a08189.setIcon(div_icon_5f979cc1dba12c02d56bf64e700f631b);
+            
+    
+                marker_c550220405143d1be1231aac717daccf.setIcon(div_icon_af97b3c492c9142800932a3aa268c87d);
+            
+    
+                marker_e9aecff9fde7e3c34e1a2635f78c3630.setIcon(div_icon_e6276097a79453fb4ff32fc30a13e0fb);
+            
+    
+                marker_cdefddb3e1fc37287b5e7d6bda17132b.setIcon(div_icon_e0756b7309e6a41cfeabb67ff811516a);
+            
+    
+                marker_bf7eabc1b421992328e95527e882afa4.setIcon(div_icon_a8599e59e4236aaee78d957c74e65577);
+            
+    
+                marker_ecc216c6f1b41ed622c4fedbe27062c0.setIcon(div_icon_179441d221eb91d0d289153653153155);
+            
+    
+            tile_layer_73dbfcb6d2034f9b1cbebd4995ac8862.addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+                marker_b56cda08d5d013ff65bb29148eed06f6.setIcon(div_icon_92018e1bc1a00c5cab2ab83b891a448c);
+            
+    
+                marker_87b350b6a754f280f0f1c798d0f07cdd.setIcon(div_icon_9bad5644c35b8120de5b38a8a5293213);
+            
+    
+                marker_d80e24e9cd2410f6c1f664818f0d895a.setIcon(div_icon_6de1f048590176773524c0fd237828e2);
+            
+    
+                marker_11909fcda275e49045b1fd9498301077.setIcon(div_icon_09fe7188faf380799e452ec2f2c18502);
+            
+    
+                marker_18f58d70245b09d72f7b13b1f057f766.setIcon(div_icon_ca0280e56e930022028f67761c2a6b1e);
+            
+    
+                marker_516b4e197c85c1095f441e7763fe741e.setIcon(div_icon_8efa183b0f0a7712dac7530809efd3b8);
+            
+    
+                marker_4be9e6bb4ce7258d5e750ef49185cf83.setIcon(div_icon_a077e5b652acf74390e48f08af899012);
+            
+    
+                marker_1f14141b3e2ff123f722c54540562895.setIcon(div_icon_2e865084f5fba7c866312e3ce609fc28);
+            
+    
+                marker_53f1191523d551fd5c9e5365ba564150.setIcon(div_icon_82230615e7ad9bf51d8753c8a9fd109e);
+            
+    
+                marker_1a2e76f37ce8c4a09d20825ca2a08189.setIcon(div_icon_5f979cc1dba12c02d56bf64e700f631b);
+            
+    
+                marker_c550220405143d1be1231aac717daccf.setIcon(div_icon_af97b3c492c9142800932a3aa268c87d);
+            
+    
+                marker_e9aecff9fde7e3c34e1a2635f78c3630.setIcon(div_icon_e6276097a79453fb4ff32fc30a13e0fb);
+            
+    
+                marker_cdefddb3e1fc37287b5e7d6bda17132b.setIcon(div_icon_e0756b7309e6a41cfeabb67ff811516a);
+            
+    
+                marker_bf7eabc1b421992328e95527e882afa4.setIcon(div_icon_a8599e59e4236aaee78d957c74e65577);
+            
+    
+                marker_ecc216c6f1b41ed622c4fedbe27062c0.setIcon(div_icon_179441d221eb91d0d289153653153155);
+            
+    
+            tile_layer_73dbfcb6d2034f9b1cbebd4995ac8862.addTo(map_117cce2f144ab555331ff22f8d61df16);
+        
+    
+                marker_b56cda08d5d013ff65bb29148eed06f6.setIcon(div_icon_92018e1bc1a00c5cab2ab83b891a448c);
+            
+    
+                marker_87b350b6a754f280f0f1c798d0f07cdd.setIcon(div_icon_9bad5644c35b8120de5b38a8a5293213);
+            
+    
+                marker_d80e24e9cd2410f6c1f664818f0d895a.setIcon(div_icon_6de1f048590176773524c0fd237828e2);
+            
+    
+                marker_11909fcda275e49045b1fd9498301077.setIcon(div_icon_09fe7188faf380799e452ec2f2c18502);
+            
+    
+                marker_18f58d70245b09d72f7b13b1f057f766.setIcon(div_icon_ca0280e56e930022028f67761c2a6b1e);
+            
+    
+                marker_516b4e197c85c1095f441e7763fe741e.setIcon(div_icon_8efa183b0f0a7712dac7530809efd3b8);
+            
+    
+                marker_4be9e6bb4ce7258d5e750ef49185cf83.setIcon(div_icon_a077e5b652acf74390e48f08af899012);
+            
+    
+                marker_1f14141b3e2ff123f722c54540562895.setIcon(div_icon_2e865084f5fba7c866312e3ce609fc28);
+            
+    
+                marker_53f1191523d551fd5c9e5365ba564150.setIcon(div_icon_82230615e7ad9bf51d8753c8a9fd109e);
+            
+    
+                marker_1a2e76f37ce8c4a09d20825ca2a08189.setIcon(div_icon_5f979cc1dba12c02d56bf64e700f631b);
+            
+    
+                marker_c550220405143d1be1231aac717daccf.setIcon(div_icon_af97b3c492c9142800932a3aa268c87d);
+            
+    
+                marker_e9aecff9fde7e3c34e1a2635f78c3630.setIcon(div_icon_e6276097a79453fb4ff32fc30a13e0fb);
+            
+    
+                marker_cdefddb3e1fc37287b5e7d6bda17132b.setIcon(div_icon_e0756b7309e6a41cfeabb67ff811516a);
+            
+    
+                marker_bf7eabc1b421992328e95527e882afa4.setIcon(div_icon_a8599e59e4236aaee78d957c74e65577);
+            
+    
+                marker_ecc216c6f1b41ed622c4fedbe27062c0.setIcon(div_icon_179441d221eb91d0d289153653153155);
+            
+</script>
+</html>
