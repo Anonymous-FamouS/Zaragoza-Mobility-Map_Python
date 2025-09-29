@@ -43,15 +43,24 @@ https://github.com/user-attachments/assets/d1d73fd3-81ce-4e1e-9c47-0ed39f86cdf1
   - Combined 2×2 grid export of visualisations.  
   - Folium map overlay with district-level emissions and legend.
 
-<img width="3018" height="1580" alt="image" src="https://github.com/user-attachments/assets/ba22856c-fa5f-41ce-a8f1-e3e3fce33a0f" />
 
 
-<img width="3018" height="1580" alt="image" src="https://github.com/user-attachments/assets/fdaba80c-bd36-454f-bd96-3a5bf5f873c4" />
+https://github.com/user-attachments/assets/d357599d-4a67-4067-ae03-17799de32601
+
+
+
+
+https://github.com/user-attachments/assets/5dbc9b78-fad7-4fef-ae75-06398ce3c02f
+
 
 - **Extensions / Side Modules**:  
   - Accessibility: stop coverage and centroids.  
   - Legend customisation and district label testing.  
   - Export-ready multipanel graphics.  
+
+
+
+https://github.com/user-attachments/assets/aec9d86d-de66-43f9-b86e-b4459982685c
 
 ---
 
